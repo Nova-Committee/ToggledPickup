@@ -8,7 +8,7 @@
     "Tapio"
   ],
   "license": "All-Rights-Reserved",
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "client": [
       "committee.nova.toggledpickup.client.ToggledPickupClient"
