@@ -16,9 +16,16 @@ public class ToggledPickupClient implements ClientModInitializer {
             "category.toggledpickup"
     );
 
+    public static final KeyMapping manuallyPickup = new KeyMapping(
+            "key.toggledpickup.manually",
+            InputConstants.Type.KEYSYM, -1,
+            "category.toggledpickup"
+    );
+
     @Override
     public void onInitializeClient() {
         KeyBindingHelper.registerKeyBinding(toggleAutoPickup);
+        KeyBindingHelper.registerKeyBinding(manuallyPickup);
         ClientTickEvents.END_CLIENT_TICK.register(c -> {
             boolean pressed = false;
             while (toggleAutoPickup.consumeClick()) pressed = true;

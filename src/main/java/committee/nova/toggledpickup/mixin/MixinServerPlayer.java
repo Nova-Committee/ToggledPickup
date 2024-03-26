@@ -1,12 +1,11 @@
 package committee.nova.toggledpickup.mixin;
 
 import com.mojang.authlib.GameProfile;
-import committee.nova.toggledpickup.api.ICanToggleAutoPickup;
+import committee.nova.toggledpickup.api.ExtendedServerPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -23,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
-public abstract class MixinServerPlayer extends Player implements ICanToggleAutoPickup {
+public abstract class MixinServerPlayer extends Player implements ExtendedServerPlayer {
     @Shadow
     public abstract void displayClientMessage(Component component, boolean bl);
 
@@ -33,8 +32,21 @@ public abstract class MixinServerPlayer extends Player implements ICanToggleAuto
     @Unique
     private boolean toggledPickup$autoPickup = false;
 
+    @Unique
+    private boolean toggledPickup$manuallyPickingUp = false;
+
     public MixinServerPlayer(Level level, BlockPos blockPos, float f, GameProfile gameProfile, @Nullable ProfilePublicKey profilePublicKey) {
         super(level, blockPos, f, gameProfile, profilePublicKey);
+    }
+
+    @Override
+    public boolean toggledpickup$isManuallyPickingUp() {
+        return toggledPickup$manuallyPickingUp;
+    }
+
+    @Override
+    public void toggledpickup$setManuallyPickingUp(boolean manually) {
+        this.toggledPickup$manuallyPickingUp = manually;
     }
 
     @Override
@@ -51,7 +63,7 @@ public abstract class MixinServerPlayer extends Player implements ICanToggleAuto
                                 "msg.toggledpickup.status.%s",
                                 autoPickup ? "on" : "off"
                         )
-                ).setStyle(Style.EMPTY.withColor(autoPickup ? ChatFormatting.GREEN : ChatFormatting.RED)),
+                ).withStyle(autoPickup ? ChatFormatting.GREEN : ChatFormatting.RED),
                 true
         );
         playNotifySound(
@@ -73,6 +85,6 @@ public abstract class MixinServerPlayer extends Player implements ICanToggleAuto
 
     @Inject(method = "restoreFrom", at = @At("TAIL"))
     private void inject$restoreFrom(ServerPlayer serverPlayer, boolean bl, CallbackInfo ci) {
-        this.toggledPickup$setAutoPickup(((ICanToggleAutoPickup) serverPlayer).toggledPickup$isAutoPickup());
+        this.toggledPickup$setAutoPickup(((ExtendedServerPlayer) serverPlayer).toggledPickup$isAutoPickup());
     }
 }

@@ -8,6 +8,8 @@
     "MixinServerPlayer"
   ],
   "client": [
+    "MixinGui",
+    "MixinLocalPlayer"
   ],
   "injectors": {
     "defaultRequire": 1

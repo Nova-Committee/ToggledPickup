@@ -1,6 +1,6 @@
 package committee.nova.toggledpickup.mixin;
 
-import committee.nova.toggledpickup.api.ICanToggleAutoPickup;
+import committee.nova.toggledpickup.api.ExtendedServerPlayer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +14,7 @@ public abstract class MixinItemEntity {
     @Inject(method = "playerTouch", at = @At("HEAD"), cancellable = true)
     private void inject$playerTouch(Player player, CallbackInfo ci) {
         if (!(player instanceof ServerPlayer sp)) return;
-        if (!((ICanToggleAutoPickup) sp).toggledPickup$isAutoPickup()) ci.cancel();
+        final ExtendedServerPlayer extended = (ExtendedServerPlayer) sp;
+        if (!extended.toggledPickup$isAutoPickup() && !extended.toggledpickup$isManuallyPickingUp()) ci.cancel();
     }
 }
