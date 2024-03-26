@@ -1,0 +1,6 @@
+{
+  "category.toggledpickup": "Toggled Pickup",
+  "msg.toggledpickup.status.off": "Auto Pickup: Disabled",
+  "msg.toggledpickup.status.on": "Auto Pickup: Enabled",
+  "key.toggledpickup.toggle": "Toggle AutoPickup"
+}

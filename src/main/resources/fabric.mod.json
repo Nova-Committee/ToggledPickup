@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "toggledpickup",
+  "version": "${version}",
+  "name": "ToggledPickup",
+  "description": "Toggle AutoPickup via a keybinding!",
+  "authors": [
+    "Tapio"
+  ],
+  "license": "All-Rights-Reserved",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "committee.nova.toggledpickup.client.ToggledPickupClient"
+    ],
+    "main": [
+      "committee.nova.toggledpickup.common.ToggledPickup"
+    ]
+  },
+  "mixins": [
+    "toggledpickup.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "fabric": "*",
+    "minecraft": "*"
+  }
+}

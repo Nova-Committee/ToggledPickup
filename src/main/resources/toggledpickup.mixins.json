@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "committee.nova.toggledpickup.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinItemEntity",
+    "MixinServerPlayer"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
