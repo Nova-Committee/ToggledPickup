@@ -13,7 +13,7 @@ public class ClientForgeEventHandler {
     @SubscribeEvent
     public static void onInput(InputEvent.Key event) {
         if (event.getKey() == KeyMappings.toggleAutoPickup.getKey().getValue() && KeyMappings.toggleAutoPickup.isDown()) {
-            NetworkHandler.TOGGLE.send(new ToggleMessage(), PacketDistributor.SERVER.noArg());
+            NetworkHandler.TOGGLE.send(PacketDistributor.SERVER.noArg(), new ToggleMessage());
         }
     }
 }

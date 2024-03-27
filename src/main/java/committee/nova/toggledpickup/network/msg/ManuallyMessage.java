@@ -3,7 +3,9 @@ package committee.nova.toggledpickup.network.msg;
 import committee.nova.toggledpickup.api.ExtendedServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.minecraftforge.network.NetworkEvent;
+
+import java.util.function.Supplier;
 
 public class ManuallyMessage {
     private final boolean pressed;
@@ -20,7 +22,8 @@ public class ManuallyMessage {
         buf.writeBoolean(this.pressed);
     }
 
-    public void handler(CustomPayloadEvent.Context ctx) {
+    public void handler(Supplier<NetworkEvent.Context> sup) {
+        final NetworkEvent.Context ctx = sup.get();
         final ServerPlayer player = ctx.getSender();
         if (player == null) return;
         ((ExtendedServerPlayer) player).toggledpickup$setManuallyPickingUp(pressed);

@@ -20,7 +20,7 @@ public abstract class MixinLocalPlayer {
     @Inject(method = "tick", at = @At("TAIL"))
     private void inject$tick(CallbackInfo ci) {
         final boolean manually = KeyMappings.manuallyPickup.isDown();
-        NetworkHandler.MANUALLY.send(new ManuallyMessage(manually), PacketDistributor.SERVER.noArg());
+        NetworkHandler.MANUALLY.send(PacketDistributor.SERVER.noArg(), new ManuallyMessage(manually));
         if (manually) ((ExtendedGui) Minecraft.getInstance().gui).toggledPickup$setOverlayMessage(
                 Component.translatable("msg.toggledpickup.status.manually").withStyle(ChatFormatting.AQUA),
                 20
