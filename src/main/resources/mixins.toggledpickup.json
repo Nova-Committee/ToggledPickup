@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.7.11",
+  "package": "committee.nova.toggledpickup.mixin",
+  "refmap": "mixins.toggledpickup.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinEntityItem",
+    "MixinEntityPlayerMP"
+  ],
+  "client": [
+    "MixinEntityPlayerSP"
+  ]
+}

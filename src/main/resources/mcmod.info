@@ -1,18 +1,13 @@
 [
   {
-    "modid": "examplemod",
-    "name": "ExampleMod",
-    "description": "Example mixined scala mod!",
+    "modid": "toggledpickup",
+    "name": "ToggledPickup",
+    "description": "More detailed control of pickup behavior.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "",
-    "updateUrl": "",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/toggledpickup/",
     "authorList": [
-      "Author"
-    ],
-    "credits": "",
-    "logoFile": "",
-    "screenshots": [],
-    "dependencies": []
+      "Tapio"
+    ]
   }
 ]
