@@ -4,17 +4,17 @@ import committee.nova.toggledpickup.api.ExtendedGui;
 import committee.nova.toggledpickup.client.KeyMappings;
 import committee.nova.toggledpickup.network.handler.NetworkHandler;
 import committee.nova.toggledpickup.network.msg.ManuallyMessage;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.network.PacketDistributor;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.network.PacketDistributor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(LocalPlayer.class)
+@Mixin(ClientPlayerEntity.class)
 public abstract class MixinLocalPlayer {
 
     @Inject(method = "tick", at = @At("TAIL"))
@@ -22,7 +22,7 @@ public abstract class MixinLocalPlayer {
         final boolean manually = KeyMappings.manuallyPickup.isDown();
         NetworkHandler.MANUALLY.send(PacketDistributor.SERVER.noArg(), new ManuallyMessage(manually));
         if (manually) ((ExtendedGui) Minecraft.getInstance().gui).toggledPickup$setOverlayMessage(
-                new TranslatableComponent("msg.toggledpickup.status.manually").withStyle(ChatFormatting.AQUA),
+                new TranslationTextComponent("msg.toggledpickup.status.manually").withStyle(TextFormatting.AQUA),
                 20
         );
     }

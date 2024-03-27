@@ -1,7 +1,7 @@
 package committee.nova.toggledpickup.api;
 
-import net.minecraft.network.chat.Component;
+import net.minecraft.util.text.ITextComponent;
 
 public interface ExtendedGui {
-    void toggledPickup$setOverlayMessage(Component msg, int remainTime);
+    void toggledPickup$setOverlayMessage(ITextComponent msg, int remainTime);
 }

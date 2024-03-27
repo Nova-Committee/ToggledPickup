@@ -2,37 +2,27 @@ package committee.nova.toggledpickup.mixin;
 
 import com.mojang.authlib.GameProfile;
 import committee.nova.toggledpickup.api.ExtendedServerPlayer;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerPlayer.class)
-public abstract class MixinServerPlayer extends Player implements ExtendedServerPlayer {
+@Mixin(ServerPlayerEntity.class)
+public abstract class MixinServerPlayer extends PlayerEntity implements ExtendedServerPlayer {
 
-    public MixinServerPlayer(Level l, BlockPos p, float f, GameProfile g) {
-        super(l, p, f, g);
+    public MixinServerPlayer(World w, BlockPos p, float f, GameProfile g) {
+        super(w, p, f, g);
     }
-
-    @Shadow
-    public abstract void displayClientMessage(Component component, boolean bl);
-
-    @Shadow
-    public abstract void playNotifySound(SoundEvent soundEvent, SoundSource soundSource, float f, float g);
-
     @Unique
     private boolean toggledPickup$autoPickup = true;
 
@@ -58,33 +48,33 @@ public abstract class MixinServerPlayer extends Player implements ExtendedServer
     public void toggledPickup$setAutoPickup(boolean autoPickup) {
         this.toggledPickup$autoPickup = autoPickup;
         displayClientMessage(
-                new TranslatableComponent(
+                new TranslationTextComponent(
                         String.format(
                                 "msg.toggledpickup.status.%s",
                                 autoPickup ? "on" : "off"
                         )
-                ).withStyle(autoPickup ? ChatFormatting.GREEN : ChatFormatting.RED),
+                ).withStyle(autoPickup ? TextFormatting.GREEN : TextFormatting.RED),
                 true
         );
         playNotifySound(
                 autoPickup ? SoundEvents.WOODEN_BUTTON_CLICK_ON : SoundEvents.WOODEN_BUTTON_CLICK_OFF,
-                SoundSource.MASTER,
+                SoundCategory.MASTER,
                 1.0F, 1.0F
         );
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void inject$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    private void inject$readAdditionalSaveData(CompoundNBT tag, CallbackInfo ci) {
         this.toggledPickup$autoPickup = tag.getBoolean("autoPickup");
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void inject$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    private void inject$addAdditionalSaveData(CompoundNBT tag, CallbackInfo ci) {
         tag.putBoolean("autoPickup", this.toggledPickup$autoPickup);
     }
 
     @Inject(method = "restoreFrom", at = @At("TAIL"))
-    private void inject$restoreFrom(ServerPlayer serverPlayer, boolean bl, CallbackInfo ci) {
+    private void inject$restoreFrom(ServerPlayerEntity serverPlayer, boolean bl, CallbackInfo ci) {
         this.toggledPickup$setAutoPickup(((ExtendedServerPlayer) serverPlayer).toggledPickup$isAutoPickup());
     }
 }
