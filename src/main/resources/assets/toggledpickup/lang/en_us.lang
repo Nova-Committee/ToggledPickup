@@ -1,0 +1,7 @@
+category.toggledpickup=Toggled Pickup
+key.toggledpickup.manually=Manually Pick Up
+key.toggledpickup.toggle=Toggle AutoPickup
+msg.toggledpickup.auto.off=Auto Pickup: Disabled
+msg.toggledpickup.auto.on=Auto Pickup: Enabled
+msg.toggledpickup.manually.off=Manually Pick Up: Disabled
+msg.toggledpickup.manually.on=Manually Pick Up: Enabled

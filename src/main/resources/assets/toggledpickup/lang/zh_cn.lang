@@ -1,0 +1,7 @@
+category.toggledpickup=拾取控制
+key.toggledpickup.manually=手动拾取
+key.toggledpickup.toggle=开关自动拾取
+msg.toggledpickup.auto.off=自动拾取：已禁用
+msg.toggledpickup.auto.on=自动拾取：已启用
+msg.toggledpickup.manually.off=手动拾取：已禁用
+msg.toggledpickup.manually.on=手动拾取：已启用
