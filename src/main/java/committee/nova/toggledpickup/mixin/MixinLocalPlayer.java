@@ -7,7 +7,7 @@ import committee.nova.toggledpickup.network.msg.ManuallyMessage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.network.PacketDistributor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +22,7 @@ public abstract class MixinLocalPlayer {
         final boolean manually = KeyMappings.manuallyPickup.isDown();
         NetworkHandler.MANUALLY.send(PacketDistributor.SERVER.noArg(), new ManuallyMessage(manually));
         if (manually) ((ExtendedGui) Minecraft.getInstance().gui).toggledPickup$setOverlayMessage(
-                Component.translatable("msg.toggledpickup.status.manually").withStyle(ChatFormatting.AQUA),
+                new TranslatableComponent("msg.toggledpickup.status.manually").withStyle(ChatFormatting.AQUA),
                 20
         );
     }

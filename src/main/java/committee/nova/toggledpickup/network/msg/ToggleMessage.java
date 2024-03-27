@@ -19,9 +19,11 @@ public class ToggleMessage {
 
     public void handler(Supplier<NetworkEvent.Context> sup) {
         final NetworkEvent.Context ctx = sup.get();
-        final ServerPlayer player = ctx.getSender();
-        if (player == null) return;
-        final ExtendedServerPlayer extended = (ExtendedServerPlayer) player;
-        extended.toggledPickup$setAutoPickup(!extended.toggledPickup$isAutoPickup());
+        ctx.enqueueWork(() -> {
+            final ServerPlayer player = ctx.getSender();
+            if (player == null) return;
+            final ExtendedServerPlayer extended = (ExtendedServerPlayer) player;
+            extended.toggledPickup$setAutoPickup(!extended.toggledPickup$isAutoPickup());
+        });
     }
 }

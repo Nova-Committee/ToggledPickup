@@ -6,14 +6,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.ProfilePublicKey;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -24,8 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayer.class)
 public abstract class MixinServerPlayer extends Player implements ExtendedServerPlayer {
 
-    public MixinServerPlayer(Level l, BlockPos p, float f, GameProfile g, @Nullable ProfilePublicKey k) {
-        super(l, p, f, g, k);
+    public MixinServerPlayer(Level l, BlockPos p, float f, GameProfile g) {
+        super(l, p, f, g);
     }
 
     @Shadow
@@ -59,7 +58,7 @@ public abstract class MixinServerPlayer extends Player implements ExtendedServer
     public void toggledPickup$setAutoPickup(boolean autoPickup) {
         this.toggledPickup$autoPickup = autoPickup;
         displayClientMessage(
-                Component.translatable(
+                new TranslatableComponent(
                         String.format(
                                 "msg.toggledpickup.status.%s",
                                 autoPickup ? "on" : "off"

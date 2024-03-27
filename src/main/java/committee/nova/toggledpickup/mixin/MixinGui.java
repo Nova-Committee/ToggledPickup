@@ -11,9 +11,6 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class MixinGui implements ExtendedGui {
 
     @Shadow
-    public abstract void setChatDisabledByPlayerShown(boolean bl);
-
-    @Shadow
     @Nullable
     protected Component overlayMessageString;
 
@@ -25,7 +22,6 @@ public abstract class MixinGui implements ExtendedGui {
 
     @Override
     public void toggledPickup$setOverlayMessage(Component msg, int remainTime) {
-        this.setChatDisabledByPlayerShown(false);
         this.overlayMessageString = msg;
         this.overlayMessageTime = Math.max(20, remainTime);
         this.animateOverlayMessageColor = false;

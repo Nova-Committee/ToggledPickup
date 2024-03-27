@@ -11,7 +11,7 @@ import net.minecraftforge.network.PacketDistributor;
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class ClientForgeEventHandler {
     @SubscribeEvent
-    public static void onInput(InputEvent.Key event) {
+    public static void onInput(InputEvent.KeyInputEvent event) {
         if (event.getKey() == KeyMappings.toggleAutoPickup.getKey().getValue() && KeyMappings.toggleAutoPickup.isDown()) {
             NetworkHandler.TOGGLE.send(PacketDistributor.SERVER.noArg(), new ToggleMessage());
         }

@@ -3,9 +3,10 @@ package committee.nova.toggledpickup.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class KeyMappings {
@@ -22,8 +23,8 @@ public class KeyMappings {
     );
 
     @SubscribeEvent
-    public static void onRegisterKey(RegisterKeyMappingsEvent event) {
-        event.register(toggleAutoPickup);
-        event.register(manuallyPickup);
+    public static void onRegisterKey(FMLClientSetupEvent event) {
+        ClientRegistry.registerKeyBinding(toggleAutoPickup);
+        ClientRegistry.registerKeyBinding(manuallyPickup);
     }
 }

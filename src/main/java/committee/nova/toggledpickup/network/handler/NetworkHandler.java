@@ -19,7 +19,7 @@ public class NetworkHandler {
         TOGGLE.messageBuilder(ToggleMessage.class, 0)
                 .encoder(ToggleMessage::toBytes)
                 .decoder(ToggleMessage::new)
-                .consumerMainThread(ToggleMessage::handler)
+                .consumer(ToggleMessage::handler)
                 .add();
         MANUALLY = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(ToggledPickup.MODID, "manually"))
                 .clientAcceptedVersions(NetworkRegistry.ACCEPTVANILLA::equals)
@@ -28,7 +28,7 @@ public class NetworkHandler {
         MANUALLY.messageBuilder(ManuallyMessage.class, 0)
                 .encoder(ManuallyMessage::toBytes)
                 .decoder(ManuallyMessage::new)
-                .consumerMainThread(ManuallyMessage::handler)
+                .consumer(ManuallyMessage::handler)
                 .add();
     }
 }

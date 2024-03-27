@@ -24,8 +24,10 @@ public class ManuallyMessage {
 
     public void handler(Supplier<NetworkEvent.Context> sup) {
         final NetworkEvent.Context ctx = sup.get();
-        final ServerPlayer player = ctx.getSender();
-        if (player == null) return;
-        ((ExtendedServerPlayer) player).toggledpickup$setManuallyPickingUp(pressed);
+        ctx.enqueueWork(() -> {
+            final ServerPlayer player = ctx.getSender();
+            if (player == null) return;
+            ((ExtendedServerPlayer) player).toggledpickup$setManuallyPickingUp(pressed);
+        });
     }
 }
