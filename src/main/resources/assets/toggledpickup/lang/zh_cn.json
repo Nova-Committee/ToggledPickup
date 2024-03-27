@@ -1,0 +1,8 @@
+{
+  "category.toggledpickup": "拾取开关",
+  "key.toggledpickup.manually": "手动拾取",
+  "key.toggledpickup.toggle": "开关自动拾取",
+  "msg.toggledpickup.status.manually": "手动拾取中…",
+  "msg.toggledpickup.status.off": "自动拾取：已禁用",
+  "msg.toggledpickup.status.on": "自动拾取：已启用"
+}
