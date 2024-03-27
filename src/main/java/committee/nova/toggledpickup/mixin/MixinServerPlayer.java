@@ -30,7 +30,7 @@ public abstract class MixinServerPlayer extends Player implements ExtendedServer
     public abstract void playNotifySound(SoundEvent soundEvent, SoundSource soundSource, float f, float g);
 
     @Unique
-    private boolean toggledPickup$autoPickup = false;
+    private boolean toggledPickup$autoPickup = true;
 
     @Unique
     private boolean toggledPickup$manuallyPickingUp = false;
