@@ -13,6 +13,7 @@ public class NetworkHandler {
 
     public static void registerMessage() {
         TOGGLE = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(ToggledPickup.MODID, "toggle"))
+                .networkProtocolVersion(() -> NetworkRegistry.ACCEPTVANILLA)
                 .clientAcceptedVersions(NetworkRegistry.ACCEPTVANILLA::equals)
                 .serverAcceptedVersions(NetworkRegistry.ACCEPTVANILLA::equals)
                 .simpleChannel();
@@ -22,6 +23,7 @@ public class NetworkHandler {
                 .consumerMainThread(ToggleMessage::handler)
                 .add();
         MANUALLY = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(ToggledPickup.MODID, "manually"))
+                .networkProtocolVersion(() -> NetworkRegistry.ACCEPTVANILLA)
                 .clientAcceptedVersions(NetworkRegistry.ACCEPTVANILLA::equals)
                 .serverAcceptedVersions(NetworkRegistry.ACCEPTVANILLA::equals)
                 .simpleChannel();
