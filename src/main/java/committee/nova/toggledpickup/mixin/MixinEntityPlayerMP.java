@@ -87,6 +87,6 @@ public abstract class MixinEntityPlayerMP extends EntityPlayer implements Extend
     @Inject(method = "copyFrom", at = @At("TAIL"))
     private void inject$restoreFrom(EntityPlayerMP that, boolean keepEverything, CallbackInfo ci) {
         if (!(that instanceof EntityPlayerMP)) return;
-        this.toggledPickup$setAutoPickup(((ExtendedEntityPlayerMP) that).toggledPickup$isAutoPickup());
+        this.toggledPickup$setAutoPickup(((ExtendedEntityPlayerMP) that).toggledPickup$isAutoPickup(), false);
     }
 }
