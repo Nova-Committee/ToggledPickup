@@ -44,8 +44,9 @@ public abstract class MixinEntityPlayerMP extends EntityPlayer implements Extend
     }
 
     @Override
-    public void toggledPickup$setAutoPickup(boolean autoPickup) {
+    public void toggledPickup$setAutoPickup(boolean autoPickup, boolean notify) {
         this.toggledPickup$autoPickup = autoPickup;
+        if (!notify) return;
         this.playerNetServerHandler.sendPacket(new S29PacketSoundEffect("random.click", posX, posY, posZ, 1.0F, 1.0F));
         this.addChatComponentMessage(new ChatComponentTranslation(String.format(
                 "msg.toggledpickup.auto.%s",
@@ -80,6 +81,6 @@ public abstract class MixinEntityPlayerMP extends EntityPlayer implements Extend
     @Inject(method = "clonePlayer", at = @At("TAIL"))
     private void inject$restoreFrom(EntityPlayer player, boolean bl, CallbackInfo ci) {
         if (!(player instanceof EntityPlayerMP)) return;
-        this.toggledPickup$setAutoPickup(((ExtendedEntityPlayerMP) player).toggledPickup$isAutoPickup());
+        this.toggledPickup$setAutoPickup(((ExtendedEntityPlayerMP) player).toggledPickup$isAutoPickup(), false);
     }
 }
