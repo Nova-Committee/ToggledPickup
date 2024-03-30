@@ -53,8 +53,9 @@ public abstract class MixinServerPlayer extends Player implements ExtendedServer
     }
 
     @Override
-    public void toggledPickup$setAutoPickup(boolean autoPickup) {
+    public void toggledPickup$setAutoPickup(boolean autoPickup, boolean notify) {
         this.toggledPickup$autoPickup = autoPickup;
+        if (!notify) return;
         displayClientMessage(
                 Component.translatable(
                         String.format(
@@ -83,6 +84,6 @@ public abstract class MixinServerPlayer extends Player implements ExtendedServer
 
     @Inject(method = "restoreFrom", at = @At("TAIL"))
     private void inject$restoreFrom(ServerPlayer serverPlayer, boolean bl, CallbackInfo ci) {
-        this.toggledPickup$setAutoPickup(((ExtendedServerPlayer) serverPlayer).toggledPickup$isAutoPickup());
+        this.toggledPickup$setAutoPickup(((ExtendedServerPlayer) serverPlayer).toggledPickup$isAutoPickup(), false);
     }
 }
