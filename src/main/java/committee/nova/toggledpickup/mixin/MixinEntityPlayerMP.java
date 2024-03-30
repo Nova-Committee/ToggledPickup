@@ -46,8 +46,9 @@ public abstract class MixinEntityPlayerMP extends EntityPlayer implements Extend
     }
 
     @Override
-    public void toggledPickup$setAutoPickup(boolean autoPickup) {
+    public void toggledPickup$setAutoPickup(boolean autoPickup, boolean notify) {
         this.toggledPickup$autoPickup = autoPickup;
+        if (!notify) return;
         this.connection.sendPacket(
                 new SPacketSoundEffect(
                         autoPickup ? SoundEvents.BLOCK_WOOD_BUTTON_CLICK_ON : SoundEvents.BLOCK_WOOD_BUTTON_CLICK_OFF,
