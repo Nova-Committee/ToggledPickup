@@ -84,6 +84,6 @@ public abstract class MixinServerPlayer extends Player implements ExtendedServer
 
     @Inject(method = "restoreFrom", at = @At("TAIL"))
     private void inject$restoreFrom(ServerPlayer serverPlayer, boolean bl, CallbackInfo ci) {
-        this.toggledPickup$setAutoPickup(((ExtendedServerPlayer) serverPlayer).toggledPickup$isAutoPickup());
+        this.toggledPickup$setAutoPickup(((ExtendedServerPlayer) serverPlayer).toggledPickup$isAutoPickup(), false);
     }
 }
