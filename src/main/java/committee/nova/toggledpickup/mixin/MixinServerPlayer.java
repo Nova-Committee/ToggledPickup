@@ -55,8 +55,9 @@ public abstract class MixinServerPlayer extends Player implements ExtendedServer
     }
 
     @Override
-    public void toggledPickup$setAutoPickup(boolean autoPickup) {
+    public void toggledPickup$setAutoPickup(boolean autoPickup, boolean notify) {
         this.toggledPickup$autoPickup = autoPickup;
+        if (!notify) return;
         displayClientMessage(
                 Component.translatable(
                         String.format(
